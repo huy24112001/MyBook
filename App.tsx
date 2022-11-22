@@ -8,7 +8,7 @@
  * @format
  */
 
-import React, {type PropsWithChildren} from 'react';
+import React, { type PropsWithChildren } from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -19,39 +19,32 @@ import {
   View,
 } from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-import {createNativeStackNavigator} from "@react-navigation/native-stack";
-import {NavigationContainer} from "@react-navigation/native";
-import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
-import SearchBookScreen from "./screens/SearchBookScreen";
-import ListBookScreen from "./screens/ListBookScreen";
-import BookDetailScreen from "./screens/BookDetailScreen";
+
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { NavigationContainer } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { SearchBookScreen, ListBookScreen, BookDetailScreen } from "./src/screens";
+
 
 const Stack = createNativeStackNavigator();
 const BottomTab = createBottomTabNavigator();
 
-function MainScreen(){
+function MainScreen() {
   return <BottomTab.Navigator>
-      <BottomTab.Screen name="MyBook" component={ListBookScreen} options={{title:"My Book"}}/>
-      <BottomTab.Screen name="SearchBook" component={SearchBookScreen}  options={{title:"Search Book" ,tabBarLabel:'Search'} }/>
+    <BottomTab.Screen name="MyBook" component={ListBookScreen} options={{ title: "My Book" }} />
+    <BottomTab.Screen name="SearchBook" component={SearchBookScreen} options={{ title: "Search Book", tabBarLabel: 'Search' }} />
   </BottomTab.Navigator>
 
 
 }
 
 function App() {
-   return <NavigationContainer>
-       <Stack.Navigator>
-           <Stack.Screen name="Main" options={{headerShown : false}} component={MainScreen}/>
-           <Stack.Screen name="BookDetail" component={BookDetailScreen} />
-       </Stack.Navigator>
-   </NavigationContainer>
+  return <NavigationContainer>
+    <Stack.Navigator>
+      <Stack.Screen name="Main" options={{ headerShown: false }} component={MainScreen} />
+      <Stack.Screen name="BookDetail" component={BookDetailScreen} />
+    </Stack.Navigator>
+  </NavigationContainer>
 
 };
 
