@@ -45,7 +45,7 @@ function MainScreen(){
 
 }
 
-const App = () => {
+function App() {
    return <NavigationContainer>
        <Stack.Navigator>
            <Stack.Screen name="Main" options={{headerShown : false}} component={MainScreen}/>

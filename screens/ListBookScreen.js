@@ -1,31 +1,40 @@
 import {Button, FlatList, Pressable, Text, View} from "react-native";
 import BookItem from "../components/BookItem";
+import {useEffect, useState} from "react";
 
 function ListBookScreen({navigation,route}){
 
-    const displayBook =  [
-        {
-            id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-            title: 'First Item',
-        },
-        {
-            id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-            title: 'Second Item',
-        },
-        {
-            id: '58694a0f-3da1-471f-bd96-145571e29d72',
-            title: 'Third Item',
-        },
-    ];
+    const [displayBook, setDisplayBook] = useState([])
 
-function renderBookItem(){
+        useEffect(() => {
+            fetch('https://www.googleapis.com/books/v1/volumes?q=React+Native')
+                .then((response) => response.json())
+                .then((data) => {
+                        setDisplayBook(data.items)
+                         // console.log('hai')
+                    }
+                ).catch((error) => {
+                    console.log('There has been a problem with your fetch operation: ' + error.message);
+                }
+            )
+        }, [])
 
-    function handlerBtn(){
-        navigation.navigate("BookDetail")
+    function renderBookItem(itemData){
+
+            const bookItemProp = {
+                id: itemData.item.id,
+                title: itemData.item.volumeInfo.title,
+                author : itemData.item.volumeInfo.authors,
+                imgUrl : itemData.item.volumeInfo.imageLinks.smallThumbnail,
+            };
+
+        // console.log(bookItemProp.imgUrl)
+        function handlerBtn(){
+            navigation.navigate("BookDetail",{BookId : bookItemProp.id})
+        }
+        return <BookItem onPress ={handlerBtn} bookItem ={bookItemProp}/>
     }
-    return <BookItem onPress ={handlerBtn}/>
-}
 
-    return <FlatList data={displayBook}  renderItem={renderBookItem} />
+    return  <FlatList data={displayBook} keyExtractor={(item) => item.id} renderItem={renderBookItem}/>
 }
 export default ListBookScreen;
