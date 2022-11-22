@@ -1,11 +1,10 @@
 import React from "react";
-import { View } from "react-native";
+import { Text, View } from "react-native";
+
 
 const BookListScreen = () => {
     return (
-        <View>
-
-        </View>
+        return <FlatList data={displayBook} keyExtractor={(item) => item.id} renderItem={renderBookItem} />
     );
 }
 

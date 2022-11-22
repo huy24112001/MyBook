@@ -10,7 +10,7 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import { useEffect } from 'react';
-import { BookDetail } from './src';
+import { BookDetail, BookListScreen } from './src';
 
 const App = () => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -30,6 +30,7 @@ const App = () => {
         (result) => {
           setIsLoaded(true);
           setData(result);
+          console.log(result.items);
         },
         (error) => {
           console.log(error);
@@ -46,7 +47,7 @@ const App = () => {
   } else {
     return (
       <View>
-        <BookDetail />
+
       </View>
     );
   }
