@@ -33,7 +33,7 @@ function ListBookScreen({ navigation, route }) {
             navigation.navigate("BookDetail", selfLink = bookItemProp.selfLink)
 
         }
-        return <BookItem onPress={handlerBtn} bookItem={bookItemProp} />
+        return <BookItem onPress={handlerBtn} key={bookItemProp.id} bookItem={bookItemProp} />
     }
 
     return <FlatList data={displayBook} keyExtractor={(item) => item.id} renderItem={renderBookItem} />

@@ -1,10 +1,15 @@
 import BookItem from "../components/BookItem";
-import { Button, Text, View, ActivityIndicator, StyleSheet } from "react-native";
-import { useEffect, useState } from "react";
+import { Button, Text, View, ActivityIndicator, StyleSheet, Linking, Alert, } from "react-native";
+import { useEffect, useState, useCallback } from "react";
+import { WebView } from "react-native-webview";
+// import { WebView } from 'react-native';
+
 
 
 function BookDetailScreen(props) {
     const [bookInfo, setBookInfo] = useState();
+
+
     useEffect(() => {
         fetch(props.route.params)
             .then(res => res.json())
@@ -26,21 +31,61 @@ function BookDetailScreen(props) {
         <View>
             <View>
 
-                <Text>Tên sách: {bookInfo.volumeInfo.title}</Text>
-                <Text>Phụ đề: {bookInfo.volumeInfo.title}</Text>
-                <Text>Tác giả:{bookInfo.volumeInfo.authors.map((author) => {
+                <Text>Title: {bookInfo.volumeInfo.title}</Text>
+                <Text>Subtitle: {bookInfo.volumeInfo.title}</Text>
+                <Text>Authors:{bookInfo.volumeInfo.authors.map((author) => {
                     return (
                         <Text> {author}</Text>
                     )
                 })}</Text>
-                <Text>Nhà xuất bản: {bookInfo.volumeInfo.publisher}</Text>
-                <Text>Ngay xuat ban: {bookInfo.volumeInfo.publishedDate}</Text>
-
-                <Text></Text>
+                <Text>Publisher: {bookInfo.volumeInfo.publisher}</Text>
+                <Text>Published Date: {bookInfo.volumeInfo.publishedDate}</Text>
+                <Text>Page Count: {bookInfo.volumeInfo.pageCount}</Text>
+                {/* <Text>Categories:{"\n"}{bookInfo.volumeInfo.categories.map((categorie) => {
+                    return (
+                        <Text>{categorie}{"\n"}</Text>
+                    );
+                })}</Text> */}
+                <Text>Content version: {bookInfo.volumeInfo.contentVersion}</Text>
+                <Text>Language: {bookInfo.volumeInfo.language}</Text>
+                <Button
+                    onPress={() => {
+                        Linking.openURL(bookInfo.volumeInfo.previewLink);
+                    }}
+                    title="Preview link"
+                />
+                <Button
+                    onPress={() => {
+                        Linking.openURL(bookInfo.volumeInfo.infoLink);
+                    }}
+                    title="Infomation link"
+                />
+                <Button
+                    onPress={() => {
+                        Linking.openURL(bookInfo.volumeInfo.canonicalVolumeLink);
+                    }}
+                    title="Canonucal volume link"
+                />
+            </View>
+            <View>
+                <Text>Imfomation for sale</Text>
+                <Text>Country: {bookInfo.saleInfo.country}</Text>
+                <Text>Saleability: {bookInfo.saleInfo.saleability}</Text>
+                <Text>isEbook: {bookInfo.saleInfo.isEbook ? "true" : "false"}</Text>
+            </View>
+            <View>
+                <Text>Access Infomation:</Text>
+                <Text>Country: {bookInfo.accessInfo.country}</Text>
+                <Button
+                    onPress={() => {
+                        Linking.openURL(bookInfo.accessInfo.webReaderLink);
+                    }}
+                    title="Web reader link"
+                />
             </View>
             <Button
                 onPress={() => {
-                    console.log(bookInfo.volumeInfo.title);
+                    console.log(props.route.params);
                 }}
                 title={"log"}
             />

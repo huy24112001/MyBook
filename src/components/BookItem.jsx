@@ -1,7 +1,7 @@
 import { Button, Image, Pressable, StyleSheet, Text, View } from "react-native";
 
 
-function BookItem({ onPress, bookItem, }) {
+function BookItem({ onPress, bookItem }) {
 
 
     return (
@@ -14,8 +14,11 @@ function BookItem({ onPress, bookItem, }) {
                             <Text style={styles.bookName} >{bookItem.title} </Text>
                             <View style={styles.bookAuthor}>
                                 <Text>by
-                                    {bookItem.author.map((author) => {
-                                        return <Text> {author}</Text>
+                                    {bookItem.author.map((author, index) => {
+                                        if (index === bookItem.author.length - 1)
+                                            return <Text> {author}.</Text>
+                                        else
+                                            return <Text> {author},</Text>
                                     })}
                                 </Text>
                             </View>
