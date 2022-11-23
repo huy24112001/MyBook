@@ -16,9 +16,9 @@ function BookItem({ onPress, bookItem }) {
                                 <Text>by
                                     {bookItem.author.map((author, index) => {
                                         if (index === bookItem.author.length - 1)
-                                            return <Text> {author}.</Text>
+                                            return <Text key={index}> {author}.</Text>
                                         else
-                                            return <Text> {author},</Text>
+                                            return <Text key={index}> {author},</Text>
                                     })}
                                 </Text>
                             </View>

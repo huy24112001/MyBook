@@ -1,5 +1,5 @@
 import BookDetailScreen from "./BookDetailScreen";
-import SearchBookScreen from "./SearchBookScreen";
+import FavoriteBookScreen from "./FavoriteBookScreen";
 import ListBookScreen from "./ListBookScreen";
 
-export { BookDetailScreen, ListBookScreen, SearchBookScreen };
+export { BookDetailScreen, ListBookScreen, FavoriteBookScreen };

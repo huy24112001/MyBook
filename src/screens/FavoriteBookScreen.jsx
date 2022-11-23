@@ -1,6 +1,7 @@
 import { Text } from "react-native";
 
-function SearchBookScreen() {
+
+function FavoriteBookScreen() {
     return <Text>huy</Text>
 }
-export default SearchBookScreen;
+export default FavoriteBookScreen;

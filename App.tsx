@@ -23,16 +23,26 @@ import {
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { SearchBookScreen, ListBookScreen, BookDetailScreen } from "./src/screens";
-
+import { ListBookScreen, BookDetailScreen } from "./src/screens";
+import FavoriteBookScreen from "./src/screens/FavoriteBookScreen";
+import Icon from "react-native-vector-icons/Entypo";
 
 const Stack = createNativeStackNavigator();
 const BottomTab = createBottomTabNavigator();
 
 function MainScreen() {
   return <BottomTab.Navigator>
-    <BottomTab.Screen name="MyBook" component={ListBookScreen} options={{ title: "My Book" }} />
-    <BottomTab.Screen name="SearchBook" component={SearchBookScreen} options={{ title: "Search Book", tabBarLabel: 'Search' }} />
+    <BottomTab.Screen name="MyBook" component={ListBookScreen} options={{ title: "My Book" ,
+      tabBarIcon: ({ color, size }) => (
+        <Icon name="book" size={size} color={color} />
+      ),
+    }} />
+    <BottomTab.Screen name="FavoriteBook" component={FavoriteBookScreen} options={{ title: "Favorite Book",
+      tabBarLabel: 'Favorite',
+      tabBarIcon: ({ color, size }) => (
+          <Icon name="heart" size={size} color={color} />
+      ),
+    }} />
   </BottomTab.Navigator>
 
 
