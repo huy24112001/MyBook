@@ -28,25 +28,36 @@ const BottomTab = createBottomTabNavigator();
 
 function MainScreen() {
 
-  return <BottomTab.Navigator >
-    <BottomTab.Screen name="MyBook" component={ListBookScreen} options={{ title: "My Book" ,
+  return <BottomTab.Navigator screenOptions={{
+     // headerTitleContainerStyle: { colo:'#e91e63'},
+     // headerBackground: {} ,
+    headerStyle:{
+      backgroundColor:'#143ba2',
+      borderRadius:2
+      },
+    headerTintColor:'white',
+    headerTitleStyle : {
+      fontWeight:'bold',
+      fontSize:22
+    },
+    headerTitleAlign :'center',
+    tabBarActiveTintColor : '#e6f528',
+    tabBarInactiveTintColor :'#efeaec',
+    tabBarLabelPosition : 'beside-icon',
+    tabBarItemStyle:{ },
+    tabBarLabelStyle:{fontSize:17}   ,
+    tabBarStyle :{ borderRadius:2,backgroundColor:'#143ba2'}
+  }} >
+    <BottomTab.Screen name="MyBook" component={ListBookScreen} options={{ title: "My Book" ,tabBarLabel:'My Book',
       tabBarIcon: ({ color, size }) => (
-        <Icon name="book" size={size}  />
+        <Icon name="book" size={size} color={color}  />
       ),
-      headerTitleStyle : {
-       marginLeft:170,
-        fontWeight:'bold',
-      }
     }} />
     <BottomTab.Screen name="FavoriteBook" component={FavoriteBookScreen} options={{ title: "Favorite Book",
-      tabBarLabel: 'Favorite',
-     /* tabBarIcon: ({ color, size }) => (
-          <Icon name="heart" size={size} color={color} />
-      ),*/
-      headerTitleStyle : {
-        marginLeft:170,
-        fontWeight:'bold',
-      }
+      tabBarLabel: 'Favorite Book',
+      tabBarIcon: ({ color, size }) => (
+          <Icon name="heart" size={size}  color={color} />
+      ),
     }} />
   </BottomTab.Navigator>
 
@@ -56,7 +67,17 @@ function App() {
 
   return <FavoritesContextProvider>
     <NavigationContainer>
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={{
+      headerStyle:{
+        backgroundColor:'#143ba2',
+      },
+      headerTintColor:'white',
+      headerTitleStyle : {
+        fontWeight:'bold',
+        fontSize:22
+      },
+      headerTitleAlign :'center',
+    }}>
       <Stack.Screen name="Main" options={{ headerShown: false }} component={MainScreen} />
       <Stack.Screen name="BookDetail" component={BookDetailScreen} />
     </Stack.Navigator>

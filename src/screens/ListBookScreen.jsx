@@ -1,6 +1,6 @@
 import {Button, FlatList, Pressable, Text, TextInput,StyleSheet, View} from "react-native";
 import BookItem from "../components/BookItem";
-import { useEffect, useState } from "react";
+import {useEffect, useLayoutEffect, useState} from "react";
 import Icon from "react-native-vector-icons/FontAwesome";
 
 export  function  useListBook() {
@@ -31,8 +31,15 @@ export  function  useListBook() {
 function ListBookScreen({ navigation, route }) {
 
     const [search, setSearch] = useState('');
+    const {displayBook,masterDataSource} = useListBook()
+    const [displayBook1,setDisplayBook1] = useState([])
 
-    const {displayBook, masterDataSource} = useListBook();
+    useLayoutEffect(()=> {
+            setDisplayBook1(masterDataSource)
+        }
+    ,[masterDataSource])
+
+
 
     function searchFilterFunction(text){
         // Check if searched text is not blank
@@ -48,12 +55,12 @@ function ListBookScreen({ navigation, route }) {
                     const textData = text.toUpperCase();
                     return itemData.indexOf(textData) > -1;
                 });
-            setDisplayBook(newData);
+            setDisplayBook1(newData);
             setSearch(text);
         } else {
             // Inserted text is blank
             // Update FilteredDataSource with masterDataSource
-            setDisplayBook(masterDataSource);
+            setDisplayBook1(masterDataSource);
             setSearch(text);
         }
     };
@@ -87,7 +94,7 @@ function ListBookScreen({ navigation, route }) {
 
          <FlatList
              contentContainerStyle={{paddingBottom:60}}
-             style={styles.main} data={displayBook} keyExtractor={(item) => item.id} renderItem={renderBookItem} />
+             style={styles.main} data={displayBook1} keyExtractor={(item) => item.id} renderItem={renderBookItem} />
     </View>
 }
 export default ListBookScreen;

@@ -1,17 +1,13 @@
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, TouchableHighlight, View} from 'react-native';
 
 
 function Button({ name, onPress  }) {
     return (
-        <View >
-            <Pressable onPress={onPress}>
-                <View style={styles.button}>
+            <TouchableHighlight style={styles.button} underlayColor='#0A0A54FF'  onPress={onPress}>
                     <Text style={styles.buttonText}>
                         {name}
                     </Text>
-                </View>
-            </Pressable>
-        </View>
+            </TouchableHighlight>
     );
 }
 
@@ -19,23 +15,20 @@ export default Button;
 
 const styles = StyleSheet.create({
     button: {
-        borderRadius: 4,
+        borderRadius: 6,
         padding: 8,
         marginRight:15,
-        backgroundColor: "#373767",
+        backgroundColor: "#2c2cd5",
         width:124,
+        // backgroundColor:'#0a0a54'
     },
 
     buttonText: {
         color: 'white',
+
         textAlign: 'center',
         fontSize:14,
     },
 
-    pressed: {
-        opacity: 0.75,
-        backgroundColor: 'blue',
-        borderRadius: 4,
-    },
 });
 

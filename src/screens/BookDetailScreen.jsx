@@ -36,13 +36,8 @@ function BookDetailScreen({navigation,route}) {
     useLayoutEffect(() => {
         navigation.setOptions({
             headerRight: () => {
-                return (
-                    <Icon
-                        name={bookIsFavorite ? 'heart' : 'heart-outlined'}
-                        onPress={changeFavoriteStatusHandler}
-                        size={25}
-                    />
-                );
+                return <Icon  name={bookIsFavorite ? 'heart' : 'heart-outlined'} onPress={changeFavoriteStatusHandler}
+                        size={25} color='white' />
             },
         });
     },[navigation, changeFavoriteStatusHandler]);
@@ -114,7 +109,9 @@ function BookDetailScreen({navigation,route}) {
             </View>
                 <View style={styles.desBook}>
                     <Text style={{textAlign:'center',fontWeight:'bold',fontSize: 17,}}>Description</Text>
+                    <View style={{marginLeft:15,marginRight:15}}>
                     <RenderHtml contentWidth={width} source={{html:bookInfo.volumeInfo.description}}/>
+                    </View>
                 </View>
 
             </View>
@@ -165,7 +162,7 @@ const styles = StyleSheet.create({
     desBook:{
         marginLeft:15,
         marginTop:10,
-    }
+    },
 
 
 })

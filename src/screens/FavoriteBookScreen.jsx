@@ -11,15 +11,8 @@ function FavoritesScreen({navigation}) {
 
     const favoriteBooksCtx = useContext(FavoritesContext);
     const {displayBook, masterDataSource} = useListBook();
-     const favoriteBooks = displayBook.filter((book) => favoriteBooksCtx.ids.includes(book.id))
+    const favoriteBooks = displayBook.filter((book) => favoriteBooksCtx.ids.includes(book.id))
 
-    useLayoutEffect(() => {
-            navigation.setOptions({
-                tabBarIcon: () => {
-                    return (<Icon name= 'heart'  size={25}/>);
-                },
-            });
-        },[navigation]);
 
     function renderBookItem(itemData) {
 
