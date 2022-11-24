@@ -3,29 +3,36 @@ import BookItem from "../components/BookItem";
 import { useEffect, useState } from "react";
 import Icon from "react-native-vector-icons/FontAwesome";
 
-
-
-
-
-function ListBookScreen({ navigation, route }) {
-
+export  function  useListBook() {
     const [displayBook, setDisplayBook] = useState([])
-    const [search, setSearch] = useState('');
     const [masterDataSource, setMasterDataSource] = useState([]);
 
     useEffect(() => {
         fetch('https://www.googleapis.com/books/v1/volumes?q=React+Native')
             .then((response) => response.json())
             .then((data) => {
-                setDisplayBook(data.items)
-                setMasterDataSource(data.items)
-
-            }
+                    setDisplayBook(data.items)
+                    setMasterDataSource(data.items)
+                }
             ).catch((error) => {
                 console.log('There has been a problem with your fetch operation: ' + error.message);
             }
-            )
+        )
     }, [])
+
+    return {
+        displayBook,
+        masterDataSource
+    }
+}
+
+
+
+function ListBookScreen({ navigation, route }) {
+
+    const [search, setSearch] = useState('');
+
+    const {displayBook, masterDataSource} = useListBook();
 
     function searchFilterFunction(text){
         // Check if searched text is not blank
@@ -62,7 +69,7 @@ function ListBookScreen({ navigation, route }) {
         };
 
         function handlerBtn() {
-            navigation.navigate("BookDetail", selfLink = bookItemProp.selfLink)
+            navigation.navigate("BookDetail", { selfLink : bookItemProp.selfLink ,bookId : bookItemProp.id    })
 
         }
         return <BookItem onPress={handlerBtn} key={bookItemProp.id} bookItem={bookItemProp} />
