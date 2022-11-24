@@ -32,15 +32,17 @@ const BottomTab = createBottomTabNavigator();
 
 function MainScreen() {
   return <BottomTab.Navigator>
-    <BottomTab.Screen name="MyBook" component={ListBookScreen} options={{ title: "My Book" ,
+    <BottomTab.Screen name="MyBook" component={ListBookScreen} options={{
+      title: "My Book",
       tabBarIcon: ({ color, size }) => (
         <Icon name="book" size={size} color={color} />
       ),
     }} />
-    <BottomTab.Screen name="FavoriteBook" component={FavoriteBookScreen} options={{ title: "Favorite Book",
+    <BottomTab.Screen name="FavoriteBook" component={FavoriteBookScreen} options={{
+      title: "Favorite Book",
       tabBarLabel: 'Favorite',
       tabBarIcon: ({ color, size }) => (
-          <Icon name="heart" size={size} color={color} />
+        <Icon name="heart" size={size} color={color} />
       ),
     }} />
   </BottomTab.Navigator>
