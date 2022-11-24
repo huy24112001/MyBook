@@ -1,23 +1,56 @@
 
-import { Text, View, ActivityIndicator, StyleSheet, Linking, Alert, Image, ScrollView, useWindowDimensions } from "react-native";
-import { useEffect, useState, useCallback } from "react";
+import {
+    Text,
+    View,
+    ActivityIndicator,
+    StyleSheet,
+    Linking,
+    Alert,
+    Image,
+    ScrollView,
+    useWindowDimensions,
+} from "react-native";
+import { useEffect, useState, useCallback, useLayoutEffect, useContext } from "react";
 import Button from "../components/Button";
-import RenderHTML from "react-native-render-html";
+import Icon from "react-native-vector-icons/Entypo";
+import { FavoritesContext } from "../contexts/FavoriteContext";
+import { CurrentRenderContext } from "@react-navigation/native";
+import RenderHtml from "react-native-render-html";
 
 
-function BookDetailScreen(props) {
+
+function BookDetailScreen({ navigation, route }) {
     const [bookInfo, setBookInfo] = useState();
     const { width } = useWindowDimensions();
-    const htmlContent = `<p><a href="http://jsdf.co">&hearts; nice job!</a></p>`;
-    const source = {
-        html: `
-      <p style='text-align:center;'>
-        Hello World!
-      </p>`
-    };
+    const favoriteBooksCtx = useContext(FavoritesContext);
+    const bookId = route.params.bookId;
+    const bookIsFavorite = favoriteBooksCtx.ids.includes(bookId);
+
+    function changeFavoriteStatusHandler() {
+        if (bookIsFavorite)
+            favoriteBooksCtx.removeFavorite(bookId);
+        else
+            favoriteBooksCtx.addFavorite(bookId);
+    }
+
+    useLayoutEffect(() => {
+        navigation.setOptions({
+            headerRight: () => {
+                return (
+                    <Icon
+                        name={bookIsFavorite ? 'heart' : 'heart-outlined'}
+                        onPress={changeFavoriteStatusHandler}
+                        size={25}
+                    />
+                );
+            },
+        });
+    }, [navigation, changeFavoriteStatusHandler]);
+
+
 
     useEffect(() => {
-        fetch(props.route.params)
+        fetch(route.params.selfLink)
             .then(res => res.json())
             .then(
                 (result) => {
@@ -89,10 +122,19 @@ function BookDetailScreen(props) {
 
                 </View>
 
-
+                <View>
+                    <Text style={styles.infLabel}>Language</Text>
+                    <Text style={styles.infBook}>     {bookInfo.volumeInfo.language}</Text>
+                </View>
+            </View>
+            <View style={styles.desBook}>
+                <Text style={{ textAlign: 'center', fontWeight: 'bold', fontSize: 17, }}>Description</Text>
+                <RenderHtml contentWidth={width} source={{ html: bookInfo.volumeInfo.description }} />
             </View>
 
-        </ScrollView>
+
+
+        </ScrollView >
     );
 }
 export default BookDetailScreen;
