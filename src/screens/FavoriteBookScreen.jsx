@@ -10,7 +10,7 @@ import BookItem from "../components/BookItem";
 function FavoritesScreen({navigation}) {
 
     const favoriteBooksCtx = useContext(FavoritesContext);
-    const {displayBook, masterDataSource} = useListBook();
+    const {displayBook} = useListBook();
     const favoriteBooks = displayBook.filter((book) => favoriteBooksCtx.ids.includes(book.id))
 
 

@@ -5,14 +5,12 @@ import Icon from "react-native-vector-icons/FontAwesome";
 
 export  function  useListBook() {
     const [displayBook, setDisplayBook] = useState([])
-    const [masterDataSource, setMasterDataSource] = useState([]);
 
     useEffect(() => {
         fetch('https://www.googleapis.com/books/v1/volumes?q=React+Native')
             .then((response) => response.json())
             .then((data) => {
                     setDisplayBook(data.items)
-                    setMasterDataSource(data.items)
                 }
             ).catch((error) => {
                 console.log('There has been a problem with your fetch operation: ' + error.message);
@@ -21,8 +19,7 @@ export  function  useListBook() {
     }, [])
 
     return {
-        displayBook,
-        masterDataSource
+        displayBook
     }
 }
 
@@ -31,23 +28,23 @@ export  function  useListBook() {
 function ListBookScreen({ navigation, route }) {
 
     const [search, setSearch] = useState('');
-    const {displayBook,masterDataSource} = useListBook()
-    const [displayBook1,setDisplayBook1] = useState([])
+    const {displayBook} = useListBook()
+    const [displayBook1,setDisplayBook1] = useState()
 
     useLayoutEffect(()=> {
-            setDisplayBook1(masterDataSource)
+            setDisplayBook1(displayBook)
         }
-    ,[masterDataSource])
+    ,[displayBook])
 
 
 
-    function searchFilterFunction(text){
+    function searchFilter(text){
         // Check if searched text is not blank
         if (text) {
             // Inserted text is not blank
             // Filter the masterDataSource
             // Update FilteredDataSource
-            const newData = masterDataSource.filter(
+            const newData = displayBook.filter(
                 function (item) {
                     const itemData = item.volumeInfo.title
                         ? item.volumeInfo.title.toUpperCase()
@@ -60,7 +57,7 @@ function ListBookScreen({ navigation, route }) {
         } else {
             // Inserted text is blank
             // Update FilteredDataSource with masterDataSource
-            setDisplayBook1(masterDataSource);
+            setDisplayBook1(displayBook);
             setSearch(text);
         }
     };
@@ -86,7 +83,7 @@ function ListBookScreen({ navigation, route }) {
         <View style={{flexDirection:'row'}}>
         <TextInput
             style={styles.textInputStyle}
-            onChangeText={(text) => searchFilterFunction(text)}
+            onChangeText={(text) => searchFilter(text)}
             value={search}
             placeholder="Search Here" ></TextInput>
         <Icon name='search' size ={30} style={{marginTop:7 }}></Icon>
