@@ -115,21 +115,12 @@ function BookDetailScreen({ navigation, route }) {
                 </View>
                 <View style={styles.desBook}>
                     <Text style={styles.descriptionTitle}>Description</Text>
-                    <RenderHTML
+                    <RenderHtml
                         contentWidth={width}
                         source={{ html: bookInfo.volumeInfo.description }}
                     />
 
                 </View>
-
-                <View>
-                    <Text style={styles.infLabel}>Language</Text>
-                    <Text style={styles.infBook}>     {bookInfo.volumeInfo.language}</Text>
-                </View>
-            </View>
-            <View style={styles.desBook}>
-                <Text style={{ textAlign: 'center', fontWeight: 'bold', fontSize: 17, }}>Description</Text>
-                <RenderHtml contentWidth={width} source={{ html: bookInfo.volumeInfo.description }} />
             </View>
 
 

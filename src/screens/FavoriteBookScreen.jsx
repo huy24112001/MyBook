@@ -1,25 +1,25 @@
-import {View, Text, StyleSheet, FlatList} from 'react-native';
-import {useContext, useLayoutEffect} from 'react';
+import { View, Text, StyleSheet, FlatList } from 'react-native';
+import { useContext, useLayoutEffect } from 'react';
 
 
 import { FavoritesContext } from '../contexts/FavoriteContext';
 import Icon from "react-native-vector-icons/Entypo";
-import {useListBook} from "./ListBookScreen";
+import { useListBook } from "./ListBookScreen";
 import BookItem from "../components/BookItem";
 
-function FavoritesScreen({navigation}) {
+function FavoritesScreen({ navigation }) {
 
     const favoriteBooksCtx = useContext(FavoritesContext);
-    const {displayBook, masterDataSource} = useListBook();
-     const favoriteBooks = displayBook.filter((book) => favoriteBooksCtx.ids.includes(book.id))
+    const { displayBook, masterDataSource } = useListBook();
+    const favoriteBooks = displayBook.filter((book) => favoriteBooksCtx.ids.includes(book.id))
 
     useLayoutEffect(() => {
-            navigation.setOptions({
-                tabBarIcon: () => {
-                    return (<Icon name= 'heart'  size={25}/>);
-                },
-            });
-        },[navigation]);
+        navigation.setOptions({
+            tabBarIcon: () => {
+                return (<Icon name='heart' size={25} />);
+            },
+        });
+    }, [navigation]);
 
     function renderBookItem(itemData) {
 
@@ -32,22 +32,22 @@ function FavoritesScreen({navigation}) {
         };
 
         function handlerBtn() {
-            navigation.navigate("BookDetail", { selfLink : bookItemProp.selfLink ,bookId : bookItemProp.id    })
+            navigation.navigate("BookDetail", { selfLink: bookItemProp.selfLink, bookId: bookItemProp.id })
 
         }
         return <BookItem onPress={handlerBtn} key={bookItemProp.id} bookItem={bookItemProp} />
     }
 
-   if (favoriteBooks.length === 0) {
+    if (favoriteBooks.length === 0) {
         return (
             <View style={styles.rootContainer}>
                 <Text style={styles.text}>You have no favorite books yet.</Text>
             </View>
         );
     }
-   else
-    return   <FlatList contentContainerStyle={{paddingBottom:60}}
-        style={styles.main} data={favoriteBooks} keyExtractor={(item) => item.id} renderItem={renderBookItem} />
+    else
+        return <FlatList contentContainerStyle={{ paddingBottom: 60 }}
+            style={styles.main} data={favoriteBooks} keyExtractor={(item) => item.id} renderItem={renderBookItem} />
 }
 
 export default FavoritesScreen;
