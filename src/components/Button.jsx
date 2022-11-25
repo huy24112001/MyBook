@@ -1,13 +1,13 @@
-import { StyleSheet, Text, TouchableHighlight, View} from 'react-native';
+import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 
 
-function Button({ name, onPress  }) {
+function Button({ name, onPress }) {
     return (
-            <TouchableHighlight style={styles.button} underlayColor='#0A0A54FF'  onPress={onPress}>
-                    <Text style={styles.buttonText}>
-                        {name}
-                    </Text>
-            </TouchableHighlight>
+        <TouchableHighlight style={styles.button} underlayColor='#00331a' onPress={onPress}>
+            <Text style={styles.buttonText}>
+                {name}
+            </Text>
+        </TouchableHighlight>
     );
 }
 
@@ -16,18 +16,19 @@ export default Button;
 const styles = StyleSheet.create({
     button: {
         borderRadius: 6,
-        padding: 8,
-        marginRight:15,
-        backgroundColor: "#2c2cd5",
-        width:124,
+        paddingTop: 10,
+        paddingBottom: 10,
+        marginRight: 5,
+        marginLeft: 5,
+        backgroundColor: "#008040",
+        width: 124,
         // backgroundColor:'#0a0a54'
     },
 
     buttonText: {
         color: 'white',
-
         textAlign: 'center',
-        fontSize:14,
+        fontSize: 14,
     },
 
 });
